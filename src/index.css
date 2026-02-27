@@ -1,0 +1,50 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Primary & Secondary Colors */
+  --color-primary: #2563eb; /* blue-600 */
+  --color-primary-foreground: #ffffff;
+
+  --color-secondary: #f3f4f6; /* gray-100 */
+  --color-secondary-foreground: #111827; /* gray-900 */
+  --color-border: #e5e7eb; /* gray-200 */
+
+  /* Status Colors */
+  --color-success: #16a34a; /* green-600 */
+  --color-error: #dc2626; /* red-600 */
+  --color-danger: #dc2626; /* red-600 (alias for error) */
+  --color-muted: #6b7280; /* gray-500 */
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+
+  /* Spacing (optional, for consistent padding/margin) */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+
+  /* Font Family */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Fira Code', monospace;
+}
+
+@layer base {
+  body {
+    @apply font-sans;
+  }
+}
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full hover:bg-muted/50 transition-colors;
+  }
+}

@@ -1,40 +1,19 @@
-import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router';
-import { getProductById } from '@/api/products.api';
 import type { Product } from '@/types/product.types';
 import { ProductDetails } from '@/components/products/product-details';
 import { Button } from '@/components/ui/button';
 import { ErrorMessage } from '@/components/ui/error-message';
 import { useCartStore } from '@/store/cart.store';
+import { useProduct } from '@/hooks/use-product';
 import { toast } from 'sonner';
 import { ArrowLeft } from 'lucide-react';
 
 export const ProductDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [product, setProduct] = useState<Product | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { product, isLoading, error } = useProduct(id);
 
   const addToCart = useCartStore((state) => state.addToCart);
-
-  useEffect(() => {
-    const fetchProduct = async () => {
-      if (!id) return;
-      try {
-        setIsLoading(true);
-        const data = await getProductById(Number(id));
-        setProduct(data);
-        setError(null);
-      } catch {
-        setError('Failed to load product details. It might not exist.');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchProduct();
-  }, [id]);
 
   const handleAddToCart = (p: Product) => {
     addToCart({
